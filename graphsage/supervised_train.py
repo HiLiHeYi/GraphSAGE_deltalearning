@@ -81,7 +81,7 @@ flags.DEFINE_integer('max_total_steps', 10**10,
 
 flags.DEFINE_boolean('ppr', False, 'compute PPR scores')
 if FLAGS.ppr:
-    flags.DEFINE_integer('top_k', 10, 'return top_k PPR scores')
+    flags.DEFINE_integer('top_k', 15, 'return top_k PPR scores')
 
 os.environ["CUDA_VISIBLE_DEVICES"] = str(FLAGS.gpu)
 
@@ -535,17 +535,17 @@ def train(train_data, test_data=None, predis=[], nxtime=None):
         # print(feed_dict)
         # print(len(labels))
         # print(len(labels[20]))
-        ########## ?? what is out 
-        outs = sess.run([model.preds], feed_dict=feed_dict)
-        print(len(outs[0][0]))
+        ########## ?? what is out         outs = sess.run([model.preds], feed_dict=feed_dict)
+        print(len(outs[0]))
         ppr_vals = {}
         for n, p, t in zip(batch, outs[0], labels):
-            ppr_vals[n] = [p, t]
+            ppr_vals[n] = [p[0], t[0]]
+            # ppr_vals[n] = [p, t]
 
 
-        print(labels[6999][0])
-        print(labels[7000][0])
-        print(labels[7001][0])
+        # print(labels[6999])
+        # print(labels[7000])
+        # print(labels[7001])
         # np.savetxt('ppr_prediction.csv', ppr_vals, delimiter=',')
         fig = plt.figure()
         ax = fig.add_subplot(1, 1, 1)
@@ -555,7 +555,7 @@ def train(train_data, test_data=None, predis=[], nxtime=None):
         ax.set_xlabel("number of epochs")
         ax.set_ylabel("loss")
         ax.set_title('loss for singel feature with source node 7000')
-        # plt.show()
+        plt.show()
 
         print
         return_query(0, ppr_vals, FLAGS.top_k, G)

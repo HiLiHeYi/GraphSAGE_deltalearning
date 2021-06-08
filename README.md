@@ -15,6 +15,9 @@
     $ python -m graphsage.supervised_train --train_prefix ./example_data/. --model gcn --ppr --identity_dim 2 --epochs 100
     ```
     
+
+python -m graphsage.supervised_train --train_prefix ./example_data/set-querynode-7000/toy-ppi-7000 --model gcn --ppr --identity_dim 2 --epochs 500
+    
     - change parameters:
       - in ..Graphs/graphsage/supervised_train 
       - or in shell command adding e.g. `--epochs 10 --dropout .1`
