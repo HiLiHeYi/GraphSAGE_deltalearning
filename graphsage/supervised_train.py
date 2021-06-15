@@ -9,6 +9,7 @@ import sklearn
 from sklearn import metrics
 
 from graphsage.supervised_models import SupervisedGraphsage
+from graphsage.supervised_models_6layer import SupervisedGraphsagesix
 from graphsage.models import SAGEInfo
 from graphsage.minibatch import NodeMinibatchIterator
 from graphsage.neigh_samplers import UniformNeighborSampler
@@ -533,9 +534,15 @@ def train(train_data, test_data=None, predis=[], nxtime=None):
         batch = [node for node in G.nodes()]
         feed_dict, labels = minibatch.next_minibatch_feed_dict(batch)
         # print(feed_dict)
+
+        for key, value in feed_dict.items() :
+            print("ok")
+            print (key, value)
+        # print(feed_dict)
         # print(len(labels))
         # print(len(labels[20]))
-        ########## ?? what is out         outs = sess.run([model.preds], feed_dict=feed_dict)
+        ########## ?? what is out         
+        outs = sess.run([model.preds], feed_dict=feed_dict)
         print(len(outs[0]))
         ppr_vals = {}
         for n, p, t in zip(batch, outs[0], labels):
@@ -555,7 +562,7 @@ def train(train_data, test_data=None, predis=[], nxtime=None):
         ax.set_xlabel("number of epochs")
         ax.set_ylabel("loss")
         ax.set_title('loss for singel feature with source node 7000')
-        plt.show()
+        # plt.show()
 
         print
         return_query(0, ppr_vals, FLAGS.top_k, G)
@@ -864,12 +871,12 @@ def main(argv=None):
     #     #  id_map = train_data[2]
     #     # class_map = train_data[4]
 
-    #     print(train_data[2])
-    #     print(train_data[4])
-    #     # G = train_data[0]
-    #     # fname = 'example.json'
-    #     # json.dump(dict(nodes=[[n, G.node[n]] for n in G.nodes()],edges=[[u, v, G.edge[u][v]] for u,v in G.edges()]),
-    #     # open(fname, 'w'), indent=2)
+    #     # print(train_data[2])
+    #     # print(train_data[4])
+    #     G = train_data[0]
+    #     fname = 'example.json'
+    #     json.dump(dict(nodes=[[n, G.node[n]] for n in G.nodes()],edges=[[u, v, G.edge[u][v]] for u,v in G.edges()]),
+    #     open(fname, 'w'), indent=2)
     #     # ## small test graph 4 nodes
     #     # train_data = generate_data(0) 
 

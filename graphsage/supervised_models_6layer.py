@@ -8,7 +8,7 @@ flags = tf.compat.v1.app.flags
 FLAGS = flags.FLAGS
 
 
-class SupervisedGraphsage(models.SampleAndAggregate):
+class SupervisedGraphsagesix(models.SampleAndAggregate):
     """Implementation of supervised GraphSAGE."""
 
     def __init__(self, num_classes,
